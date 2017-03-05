@@ -1,6 +1,8 @@
 package models;
 
 import StaticData.ExceptionMessages;
+import exceptions.DuplicateEntryInStructureException;
+import exceptions.KeyNotFoundException;
 
 import java.io.IOException;
 import java.util.*;
@@ -19,7 +21,7 @@ public class Student {
 
     public void enrollInCourse(Course course) {
         if (this.enrolledCourses.containsKey(course.getName())) {
-            throw new IllegalArgumentException(String.format(ExceptionMessages.STUDENT_ALREADY_ENROLLED_IN_GIVEN_COURSE, this.userName, course.getName()));
+            throw new DuplicateEntryInStructureException(this.userName, course.getName());
         }
 
         this.enrolledCourses.put(course.getName(), course);
@@ -27,7 +29,7 @@ public class Student {
 
     public void setMarkOnCourse(String courseName, int... scores) throws IOException {
         if (!this.enrolledCourses.containsKey(courseName)) {
-            throw new NullPointerException(ExceptionMessages.NOT_ENROLLED_IN_COURSE);
+            throw new KeyNotFoundException();
         }
 
         if (scores.length > Course.NUMBER_OF_TASKS_ON_EXAM) {

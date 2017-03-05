@@ -5,6 +5,7 @@ import StaticData.ExceptionMessages;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class Tester {
                 OutputWriter.writeMessageOnNewLine("Files are identical. There are no mismatches.");
             }
         } catch (Exception e) {
-            throw new Exception(ExceptionMessages.INVALID_PATH);
+            throw new exceptions.InvalidPathException();
         }
     }
 
